@@ -13,8 +13,18 @@ import javax.persistence.Table;
 @Table(name = "role", catalog = "study_communication")
 public class Role implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4636963529024483275L;
 	// Fields
+	
+	public static final int ROLE_ADMIN = 1;
+	public static final int ROLE_USER = 2;
 
+	/**
+	 * 
+	 */
 	private Integer id;
 	private String roleName;
 

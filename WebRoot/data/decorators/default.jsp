@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib prefix="decorator"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
-<%@taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML>
 <html lang="zh-CN">
@@ -14,7 +15,7 @@
 <meta name="keywords" content="">
 
 <link rel="stylesheet" href="${basePath }assets/main.css">
-<script src="${basePath }assets/main.js"></script>
+
 <!--[if gt IE 8]>
     <link rel="stylesheet" href="${basePath}css/ie.css" />
 <![endif]-->
@@ -42,10 +43,36 @@
       <li><a href="${basePath}badges">徽章</a></li>
       <li><a href="${basePath}events">活动</a></li>
     </ul>
+    <sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+    <ul class="user-nav">
+                        <li class="has-dropdown">
+                <a href="#">撰写</a>
+                <ul class="dropdown-item">
+                    <li><a href="${basePath}ask">提出问题</a></li>
+                    <li><a href="${basePath}write">撰写博客</a></li>
+                    <li class="hr"><a href="${basePath}drafts">草稿</a></li>
+                </ul>
+            </li>
+            <li class="has-dropdown">
+                <a id="msg-link" href="${basePath}user/events">消息</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="#"><sec:authentication property="principal.nickname"/><i class="i-arrow-s"></i></a>
+                <ul class="dropdown-item">
+                    <li><a href="${basePath}u/zhanhaowong">我的主页</a></li>                 
+                    <li><a href="${basePath}user/settings">帐号设置</a></li>
+                    <li class="hr"><a href="${basePath}user/logout">退出</a></li>
+                </ul>
+            </li>
+      </ul>
+    </sec:authorize>
+
+    <sec:authorize  ifNotGranted="ROLE_ADMIN,ROLE_USER">
     <ul class="user-nav">
       <li> <a id="login-link" href="${basePath}user/login">登录</a> </li>
       <li> <a href="${basePath}user/register">注册</a> </li>
     </ul>
+    </sec:authorize>
   </nav>
   <!-- end .global-nav --> 
 </div>
@@ -71,7 +98,7 @@
 <!-- end .wrap -->
 <footer id="footer">
   <div class="container"> 
-    <!--<div class="row inner hidden-xs">
+    <%--<div class="row inner hidden-xs">
       <dl class="col-sm-2 site-link">
         <dt>网站相关</dt>
         <dd><a href="${basePath}about">关于我们</a></dd>
@@ -106,13 +133,19 @@
         <dd>本站由 <a target="_blank" href="http://elinkhost.com/">Elinkhost</a> 提供 IDC 服务<br>
           <a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&amp;utm_medium=link&amp;utm_campaign=upyun&amp;md=segmentfault">又拍云</a> 提供 CDN 存储服务</dd>
       </dl>
-    </div>-->
-    <div class="copyright"> Copyright © 2011-2014 SegmentFault. 当前呈现版本 14.1.21 <br>
-      京ICP备12004937号, 京公网安备110108008332号 </div>
+    </div>--%>
+    <div class="copyright"> Copyright © 2013-2014 黄展豪 仲恺农业工程学院 <br></div>
   </div>
 </footer>
 <a id="backtop" class="mobi-hide hidden" href="#body">回顶部</a> 
 <div class="s-loading" style="display: none;">加载中</div>
+
+<script src="${basePath }js/jquery.js"></script>
+<script src="${basePath }js/lib.js"></script>
+<script src="${basePath }js/bootstrap.js"></script>
+<script src="${basePath }js/other.js"></script>
+<%-- <script src="${basePath }assets//main.js"></script> --%>
+
 </body>
 </html>
 

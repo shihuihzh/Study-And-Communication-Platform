@@ -15,6 +15,10 @@ public class UserRole implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1224881641623141411L;
 	private Integer id;
 	private Long userId;
 	private Integer roleId;

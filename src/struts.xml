@@ -9,5 +9,6 @@
     <constant name="struts.devMode" value="false" />
     
    <include file="struts_user.xml"/>
+   <include file="struts_main.xml"/>
     
 </struts>

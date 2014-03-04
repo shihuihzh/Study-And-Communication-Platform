@@ -6,8 +6,9 @@
     <group name="main">
         <css>/css/style.css</css>
         <css>/css/responsive.css</css>
-        <js>/js/lib.js</js>
-        <js>/js/other.js</js>
         <js>/js/jquery.js</js>
+        <js>/js/lib.js</js>
+        <js>/js/bootstrap.js</js>
+        <js>/js/other.js</js>
     </group>
 </groups>

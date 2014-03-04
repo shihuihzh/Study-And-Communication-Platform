@@ -7,8 +7,18 @@
     
     <package name="user" extends="json-default" namespace="/user">
     	
+    	<global-results>
+    		<result name="input">/debug.jsp</result>
+    	</global-results>
+    	
+    	<action name="register_post" class="userAction" method="register">
+            <result name="success" >/data/template/public/register_success.jsp</result>
+            <result name="input" >/data/template/public/register.jsp</result>
+        </action>
+            	
         <action name="*" class="userAction">
             <result>/data/template/public/{1}.jsp</result>
+         
         </action>
         
         
