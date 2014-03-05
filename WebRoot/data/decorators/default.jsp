@@ -67,7 +67,7 @@
       </ul>
     </sec:authorize>
 
-    <sec:authorize  ifNotGranted="ROLE_ADMIN,ROLE_USER">
+    <sec:authorize  ifAllGranted="ROLE_ANONYMOUS">
     <ul class="user-nav">
       <li> <a id="login-link" href="${basePath}user/login">登录</a> </li>
       <li> <a href="${basePath}user/register">注册</a> </li>
@@ -94,7 +94,14 @@
 <!-- end .site-header -->
 
 <decorator:body/>
-
+<% 
+		Enumeration<String> names = request.getSession().getAttributeNames();
+		while(names.hasMoreElements()) {
+			String key = names.nextElement();
+			out.print(key+"<br>");
+			out.print(request.getSession().getAttribute(key)+"<br>");
+		}
+	 %>
 <!-- end .wrap -->
 <footer id="footer">
   <div class="container"> 

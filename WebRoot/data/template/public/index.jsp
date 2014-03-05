@@ -20,14 +20,7 @@
 	欢迎，<sec:authentication property="name"/><br>
 	这是首页<br>
 	
-	<% 
-		Enumeration<String> names = request.getSession().getAttributeNames();
-		while(names.hasMoreElements()) {
-			String key = names.nextElement();
-			out.print(key+"<br>");
-			out.print(request.getSession().getAttribute(key)+"<br>");
-		}
-	 %>
+	
 	 <sec:authorize ifAllGranted="ROLE_ADMIN"> <a href="admin.jsp">点击进去管理员页面</a></sec:authorize>
 	<a href="j_spring_security_logout">退出系统</a>
 	

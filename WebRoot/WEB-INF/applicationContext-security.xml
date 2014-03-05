@@ -6,15 +6,22 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http pattern="/user/login*" security="none"/>
+<!-- 	<http pattern="/user/login*" security="none"/>
 	<http pattern="/user/register*" security="none"/>
 	<http pattern="/user/login" security="none"/>
-	<http pattern="/data/template/public/**" security="none"/>
+	<http pattern="/data/template/public/**" security="none"/> -->
 	<http auto-config="true" access-denied-page="/403.jsp" >	
+		<!--  -->
+		<intercept-url pattern="/user/login*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/user/register*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/data/template/public/**" access="ROLE_ANONYMOUS" />
+		
 		<!-- 权限页面 -->
 		<intercept-url pattern="/data/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/user/**" access="ROLE_USER,ROLE_ADMIN" />
 		<!-- <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" /> -->
+		
+		
 		
 		<!-- 登陆页面 -->
 		<form-login login-page="/user/login" authentication-failure-url="/user/login?error=true" default-target-url="/index.jsp" username-parameter="j_email"/>
@@ -28,8 +35,8 @@
 		<!-- remember me -->
 		<remember-me />
 		
+		<anonymous enabled="true" />
 		<http-basic/>
-		
 	</http>
 	
 	
