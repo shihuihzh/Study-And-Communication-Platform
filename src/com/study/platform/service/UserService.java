@@ -25,4 +25,15 @@ public interface UserService {
 	 */
 	boolean checkEmailExist(String email);
 
+
+	/**
+	 * 激活用户
+	 * @param id	uuid
+	 * @param key	签名
+	 * @return	0：成功 
+	 * 			1：不存在激活
+	 * 			2：验证失败
+	 */
+	int activityUser(String id, String key);
+
 }

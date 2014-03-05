@@ -15,6 +15,10 @@
             <result name="success" >/data/template/public/register_success.jsp</result>
             <result name="input" >/data/template/public/register.jsp</result>
         </action>
+        
+        <action name="register_check" class="userAction" method="registerCheck">
+            <result name="success" >/data/template/public/index.jsp</result>
+        </action>
             	
         <action name="*" class="userAction">
             <result>/data/template/public/{1}.jsp</result>

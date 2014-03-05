@@ -10,9 +10,14 @@
 	<http pattern="/user/register*" security="none"/>
 	<http pattern="/user/login" security="none"/>
 	<http pattern="/data/template/public/**" security="none"/> -->
+	<http pattern="/css/**" security="none"/>
+	<http pattern="/js/**" security="none"/>
+	<http pattern="/img/**" security="none"/>
+	<http pattern="/assets/**" security="none"/>
 	<http auto-config="true" access-denied-page="/403.jsp" >	
 		<!--  -->
 		<intercept-url pattern="/user/login*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/user/check_register*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/user/register*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/data/template/public/**" access="ROLE_ANONYMOUS" />
 		
@@ -24,7 +29,7 @@
 		
 		
 		<!-- 登陆页面 -->
-		<form-login login-page="/user/login" authentication-failure-url="/user/login?error=true" default-target-url="/index.jsp" username-parameter="j_email"/>
+		<form-login login-page="/user/login" authentication-failure-url="/user/login?error=true" default-target-url="/" username-parameter="j_email"/>
 		
 		<!-- 注销成功页面 -->
 		<logout logout-success-url="/" invalidate-session="false" logout-url="/user/logout"/>
@@ -37,9 +42,10 @@
 		
 		<anonymous enabled="true" />
 		<http-basic/>
+		
 	</http>
 	
-	
+	<debug />
 	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
     <authentication-manager alias="authenticationManager">
         <authentication-provider

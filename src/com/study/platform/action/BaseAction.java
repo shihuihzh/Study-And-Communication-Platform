@@ -2,6 +2,7 @@ package com.study.platform.action;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,5 +18,8 @@ public class BaseAction extends ActionSupport {
 	
 	@Resource(name="userService")
 	protected UserService userService;
+	
+	@Resource
+	protected AuthenticationManager authenticationManager;
 
 }
