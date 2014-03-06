@@ -12,11 +12,11 @@ import javax.persistence.Table;
  * UesrEnableCheck entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="user_enable_check"
+@Table(name="user_enable_reset_check"
     ,catalog="study_communication"
 )
 
-public class UserEnableCheck  implements java.io.Serializable {
+public class UserEnableResetCheck  implements java.io.Serializable {
 
 
     // Fields    
@@ -31,11 +31,11 @@ public class UserEnableCheck  implements java.io.Serializable {
     // Constructors
 
     /** default constructor */
-    public UserEnableCheck() {
+    public UserEnableResetCheck() {
     }
 
 	/** minimal constructor */
-    public UserEnableCheck(Integer id, String checkEmail, String checkUuid, String checkSign) {
+    public UserEnableResetCheck(Integer id, String checkEmail, String checkUuid, String checkSign) {
         this.id = id;
         this.checkEmail = checkEmail;
         this.checkUuid = checkUuid;
@@ -43,7 +43,7 @@ public class UserEnableCheck  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public UserEnableCheck(Integer id, String checkEmail, String checkUuid, String checkSign, Long checkExpiredTime) {
+    public UserEnableResetCheck(Integer id, String checkEmail, String checkUuid, String checkSign, Long checkExpiredTime) {
         this.id = id;
         this.checkEmail = checkEmail;
         this.checkUuid = checkUuid;

@@ -60,6 +60,14 @@
     </div>
   </div>
   </c:if>
+  <c:if test="${param.msg == 'reset' }">
+  <div id="msg-barStickyWrapper">
+    <div id="msg-bar" class="warn">
+      <a href="#" title="关闭" class="close i-cancel msg-close right">×</a>
+     	密码重置成功，请登录！
+    </div>
+  </div>
+  </c:if>
   <div class="global-nav">
     <nav class="global-nav container">
       <a href="###" id="site-nav-btn" class="visible-xs">导航</a>

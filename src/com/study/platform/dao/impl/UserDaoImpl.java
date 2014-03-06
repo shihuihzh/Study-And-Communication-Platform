@@ -79,4 +79,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		return count > 0;
 	}
 
+	@Override
+	public void resetPassword(User user, String password) {
+		Session session = getSession();
+		user = (User) session.merge(user);
+		user.setPassword(password);
+		
+	}
+
 }

@@ -3,7 +3,7 @@
     <wb-module deploy-name="Study And Communication Platform2">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="Study_And_Communication_Platform2"/>
         <property name="java-output-path" value="/Study And Communication Platform2/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="/Study_And_Communication_Platform"/>
     </wb-module>
 </project-modules>

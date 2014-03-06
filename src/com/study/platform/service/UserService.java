@@ -1,6 +1,7 @@
 package com.study.platform.service;
 
 import com.study.platform.dto.UserFormDTO;
+import com.study.platform.pojo.User;
 
 /**
  * 用户业务逻辑接口
@@ -39,9 +40,35 @@ public interface UserService {
 
 	/**
 	 * 重新发送激活邮箱验证
-	 * @param email
+	 * @param email	邮箱
 	 * @return 
 	 */
 	boolean resendActivityEmail(String email);
+
+
+	/**
+	 * 发送重置密码连接
+	 * @param email 邮箱
+	 * @return
+	 */
+	boolean sendResetPassword(String email);
+
+	/**
+	 * 验证找回密码连接是否有效
+	 * @param id	uuid
+	 * @param key	签名
+	 * @return
+	 */
+
+	User checkResetPasswordToken(String id, String key);
+
+
+	/**
+	 * 修改密码
+	 * @param user		用户
+	 * @param password	新密码
+	 * @return
+	 */
+	boolean resetPassword(User user, String password);
 
 }

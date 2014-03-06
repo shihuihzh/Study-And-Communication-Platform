@@ -19,6 +19,15 @@
 		<intercept-url pattern="/user/login*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/user/check_register*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/user/register*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/user/send_activity_email*" access="ROLE_ANONYMOUS" />
+		
+		<intercept-url pattern="/user/find_password*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/user/find_password_post*" access="ROLE_ANONYMOUS" />
+		
+		<intercept-url pattern="/user/reset_password*" access="ROLE_ANONYMOUS" />
+		<intercept-url pattern="/user/reset_password_post*" access="ROLE_ANONYMOUS" />
+		
+		<intercept-url pattern="/user/resend_email*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/data/template/public/**" access="ROLE_ANONYMOUS" />
 		
 		<!-- 权限页面 -->

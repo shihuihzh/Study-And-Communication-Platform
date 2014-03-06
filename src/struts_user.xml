@@ -11,19 +11,41 @@
     		<result name="input">/debug.jsp</result>
     	</global-results>
     	
+    	<!-- 处理注册请求 -->
     	<action name="register_post" class="userAction" method="register">
             <result name="success" >/data/template/public/register_success.jsp</result>
             <result name="input" >/data/template/public/register.jsp</result>
         </action>
         
-        <action name="register_check" class="userAction" method="registerCheck">
+        <!-- 处理激活成功否请求 -->
+        <action name="register_check" class="userAction" method="emailCheck">
             <result name="success" type="redirect">/user/login?msg=active</result>
             <result name="input" type="redirect">/user/register?msg=active_error</result>
         </action>
         
-         <action name="resend_email" class="userAction" method="resendEmail">
-            <result name="success" type="redirect">/user/login</result>
+        <!-- 重新发送激活邮件请求  -->
+         <action name="resend_email" class="userAction" method="sendEmail">
+            <result name="success">/data/template/public/send_email_success.jsp</result>
             <result name="input" type="redirect">/user/register?msg=active_error</result>
+        </action>
+        
+        <!-- 发送重置密码邮件请求  -->
+         <action name="find_password_post" class="userAction" method="sendEmail">
+            <result name="success">/data/template/public/send_email_success.jsp</result>
+            <result name="input" type="redirect">/user/register?msg=active_error</result>
+        </action>
+        
+        <!-- 验证重置密码请求  -->
+        <action name="reset_password" class="userAction" method="emailCheck">
+            <result name="success">/data/template/public/reset_password.jsp</result>
+            <result name="input" type="redirect">/user/register?msg=active_error</result>
+        </action>
+        
+        <!-- 提交新密码请求  -->
+        <action name="reset_password_post" class="userAction" method="resetPassword">
+            <result name="success" type="redirect">/user/login?msg=reset</result>
+            <result name="input">/data/template/public/reset_password.jsp</result>
+            <result name="fail">/user/login?msg=reset_error</result>
         </action>
             	
         <action name="*" class="userAction">

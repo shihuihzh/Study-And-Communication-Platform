@@ -8,18 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.study.platform.dto.UserFormDTO;
 import com.study.platform.pojo.Role;
+import com.study.platform.pojo.User;
 
 /**
  * 用户管理action
@@ -61,19 +56,34 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 	}
 	
 	/**
-	 * 邮箱验证后链接登陆，注册后登陆
+	 * 邮箱验证后激活账户或者转到重置密码页面
 	 */
-	public String registerCheck() throws Exception {
+	public String emailCheck() throws Exception {
 		String id = request.getParameter("id");
 		String key = request.getParameter("key");
 		
-		int result = userService.activityUser(id, key);
-		
-		if (result  == 0) {
-			return super.execute();
-		} else {
-			return super.input();
+		String actionName = ActionContext.getContext().getName();
+		switch(actionName) {
+		case "reset_password":
+			User user = userService.checkResetPasswordToken(id, key);
+			if(user != null) {
+				request.getSession().setAttribute("user", user);
+				return super.SUCCESS;
+			} else {
+				return super.input();
+			}
+			
+		case "register_check":
+			int result = userService.activityUser(id, key);
+			
+			if (result  == 0) {
+				return super.execute();
+			} else {
+				return super.input();
+			}
 		}
+		
+		return super.input();
 		
 		/*UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				"admin@admin.com", "123456");
@@ -92,17 +102,59 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		}*/
 	}
 	
+	
+	
 	/**
-	 * 重新发送邮箱激活链接
+	 * 发送邮箱链接（激活邮件，重置密码邮件）
 	 */
-	public String resendEmail() throws Exception {
+	public String sendEmail() throws Exception {
 		String email = request.getParameter("email");
-		boolean result = userService.resendActivityEmail(email);
-		if (result) {
-			return super.SUCCESS;			
-		} else {
+		String actionName = ActionContext.getContext().getName();
+		request.setAttribute("email", email);
+		boolean result = false;
+		
+		switch(actionName) {
+		case "resend_email":
+			result = userService.resendActivityEmail(email);
+			if (result) {
+				request.setAttribute("operationTitle", "重新发送激活");
+			} 
+			break;
+			
+		case "find_password_post":
+			result = userService.sendResetPassword(email);
+			if (result) {
+				request.setAttribute("operationTitle", "重置密码");			
+			} 
+			break;
+		}
+		
+		if(result) {
+			return super.SUCCESS;
+		}
+		return super.input();
+	
+	}
+	
+	/**
+	 * 重置新密码
+	 */
+	public String resetPassword() throws Exception {
+		String password = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirm_password");
+		
+		if(!password.equals(confirmPassword)) {
+			request.setAttribute("error", "两次密码不一致");
 			return super.input();
 		}
+		
+		User user = (User) request.getSession().getAttribute("user");
+		if(user == null) {
+			return "fail";
+		}
+		userService.resetPassword(user, password);
+		
+		return super.SUCCESS;
 		
 	}
 

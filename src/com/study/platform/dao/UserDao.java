@@ -26,4 +26,12 @@ public interface UserDao {
 	 */
 	public boolean checkEmailExist(String email);
 
+
+	/**
+	 * 重置密码
+	 * @param user
+	 * @param password
+	 */
+	public void resetPassword(User user, String password);
+
 }

@@ -14,12 +14,12 @@
       <h2 class="big-title">登录</h2>
       <h3 class="slug">最方便的学习交流社区</h3>
       <!-- <p class="title-description">如果你有下列任何一个帐号，点击对应按钮登录，无需注册</p> -->
-      <div class="sfid-login"> 或者使用本站帐号登录 ( <a href="${basePath }user/register">注册</a> 或 <a href="${basePath }user/forgot">找回密码</a> )
+      <div class="sfid-login"> 或者使用本站帐号登录 ( <a href="${basePath }user/register">注册</a> 或 <a href="${basePath }user/find_password">找回密码</a> )
         <form action="${basePath }j_spring_security_check" method="post">
           <p>
             <label for="mail" class="hid">Email 地址</label>
             <input class="form-control input-lg text-34 <c:if test="${param.error == true}">input-error</c:if>" type="email" name="j_email" placeholder="Email 地址" value="" required="">
-          	<c:if test="${param.error == true}"><span class="text-error">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message }<c:if test="${elf:isDisableException(sessionScope.SPRING_SECURITY_LAST_EXCEPTION) }"><a href="${basePath }user/resend_email">&nbsp;点击重新发送激活邮件</a></c:if></span></c:if>
+          	<c:if test="${param.error == true}"><span class="text-error">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message }<c:if test="${elf:isDisableException(sessionScope.SPRING_SECURITY_LAST_EXCEPTION) }"><a href="${basePath }user/send_activity_email">&nbsp;点击重新发送激活邮件</a></c:if></span></c:if>
           </p>
           <p>
             <label for="password" class="hid">登录密码</label>
