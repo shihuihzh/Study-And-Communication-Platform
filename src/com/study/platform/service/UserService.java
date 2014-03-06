@@ -36,4 +36,12 @@ public interface UserService {
 	 */
 	int activityUser(String id, String key);
 
+
+	/**
+	 * 重新发送激活邮箱验证
+	 * @param email
+	 * @return 
+	 */
+	boolean resendActivityEmail(String email);
+
 }

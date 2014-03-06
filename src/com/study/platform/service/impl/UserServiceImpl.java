@@ -62,18 +62,28 @@ public class UserServiceImpl implements UserService {
 			uec.setCheckUuid(uuid);
 			userEnableCheckDao.save(uec);
 			
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(user.getEmail());
-			message.setSubject("欢迎加入学习交流社区");
-			Map<String, Object> model = new HashMap<String, Object>();
-			model.put("message", "欢迎您的加入！");
-			model.put("nickname", user.getNickname());
-			model.put("enableURL", createUrl(uuid, sign));
-			mailEngine.sendMessage(message, "accountCreated.vm", model);
+			sendUserActivityEmail(user, uuid, sign);
 			return 0;
 		} else {
 			return 1;
 		}
+	}
+
+	/**
+	 * 发送激活邮件
+	 * @param user	用户信息
+	 * @param uuid	验证唯uuid
+	 * @param sign	签名
+	 */
+	private void sendUserActivityEmail(User user, String uuid, String sign) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(user.getEmail());
+		message.setSubject("欢迎加入学习交流社区");
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("message", "欢迎您的加入！");
+		model.put("nickname", user.getNickname());
+		model.put("enableURL", createUrl(uuid, sign));
+		mailEngine.sendMessage(message, "accountCreated.vm", model);
 	}
 	
 	/**
@@ -155,6 +165,22 @@ public class UserServiceImpl implements UserService {
 		
 		String sign = passwordEncoder.encode(sb);
 		return sign;
+	}
+
+	@Override
+	public boolean resendActivityEmail(String email) {
+		UserEnableCheck usercheck = userEnableCheckDao.findByEmail(email);
+		if (usercheck != null) {
+			User u = userDao.findUserByEmail(email);
+			if(!u.getAccountEnabled()) {
+				sendUserActivityEmail(u, usercheck.getCheckUuid(), usercheck.getCheckSign());
+				return true;
+			}
+		}
+		
+		
+		return false;
+		
 	}
 
 	

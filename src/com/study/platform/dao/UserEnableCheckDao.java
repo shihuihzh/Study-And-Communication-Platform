@@ -19,4 +19,11 @@ public interface UserEnableCheckDao {
 	 * 按UUID查找验证信息对象
 	 */
 	UserEnableCheck findByUUID(String UUID);
+
+
+	/**
+	 * 按email查找验证信息对象
+	 * @param email
+	 */
+	UserEnableCheck findByEmail(String email);
 }

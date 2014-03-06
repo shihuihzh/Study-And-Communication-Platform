@@ -33,6 +33,13 @@ public class UserEnableCheckDaoImpl extends BaseDao implements UserEnableCheckDa
 		Criteria cri = session.createCriteria(UserEnableCheck.class).add(Restrictions.eq("checkUuid", UUID));
 		return (UserEnableCheck) cri.uniqueResult();
 	}
+
+	@Override
+	public UserEnableCheck findByEmail(String email) {
+		Session session = getSession();
+		Criteria cri = session.createCriteria(UserEnableCheck.class).add(Restrictions.eq("checkEmail", email));
+		return (UserEnableCheck) cri.uniqueResult();
+	}
 	
 	
 

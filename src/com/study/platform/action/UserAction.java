@@ -69,6 +69,12 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		
 		int result = userService.activityUser(id, key);
 		
+		if (result  == 0) {
+			return super.execute();
+		} else {
+			return super.input();
+		}
+		
 		/*UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				"admin@admin.com", "123456");
 
@@ -84,8 +90,20 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 			System.out.println("Authentication failed: " + e.getMessage());
 			return super.input();
 		}*/
-
-		return super.execute();
+	}
+	
+	/**
+	 * 重新发送邮箱激活链接
+	 */
+	public String resendEmail() throws Exception {
+		String email = request.getParameter("email");
+		boolean result = userService.resendActivityEmail(email);
+		if (result) {
+			return super.SUCCESS;			
+		} else {
+			return super.input();
+		}
+		
 	}
 
 	@Override

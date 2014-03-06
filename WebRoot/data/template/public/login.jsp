@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="elf" uri="/WEB-INF/elfun.tld"%>
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
@@ -18,7 +19,7 @@
           <p>
             <label for="mail" class="hid">Email 地址</label>
             <input class="form-control input-lg text-34 <c:if test="${param.error == true}">input-error</c:if>" type="email" name="j_email" placeholder="Email 地址" value="" required="">
-          	<c:if test="${param.error == true}"><span class="text-error">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message }</span></c:if>
+          	<c:if test="${param.error == true}"><span class="text-error">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message }<c:if test="${elf:isDisableException(sessionScope.SPRING_SECURITY_LAST_EXCEPTION) }"><a href="${basePath }user/resend_email">&nbsp;点击重新发送激活邮件</a></c:if></span></c:if>
           </p>
           <p>
             <label for="password" class="hid">登录密码</label>
@@ -34,6 +35,5 @@
     </div>
   </div>
 </div>
-${error }
 </body>
 </html>

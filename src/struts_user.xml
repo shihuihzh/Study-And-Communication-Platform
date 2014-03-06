@@ -17,7 +17,13 @@
         </action>
         
         <action name="register_check" class="userAction" method="registerCheck">
-            <result name="success" >/data/template/public/index.jsp</result>
+            <result name="success" type="redirect">/user/login?msg=active</result>
+            <result name="input" type="redirect">/user/register?msg=active_error</result>
+        </action>
+        
+         <action name="resend_email" class="userAction" method="resendEmail">
+            <result name="success" type="redirect">/user/login</result>
+            <result name="input" type="redirect">/user/register?msg=active_error</result>
         </action>
             	
         <action name="*" class="userAction">

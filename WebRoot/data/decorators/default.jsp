@@ -3,6 +3,7 @@
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="elf" uri="/WEB-INF/elfun.tld"%>
 
 <!DOCTYPE HTML>
 <html lang="zh-CN">
@@ -40,6 +41,22 @@
     <div id="msg-bar" class="warn">
       <a href="#" title="关闭" class="close i-cancel msg-close right">×</a>
      	${warnMsg }
+    </div>
+  </div>
+  </c:if>
+  <c:if test="${param.msg == 'active' }">
+  <div id="msg-barStickyWrapper">
+    <div id="msg-bar" class="warn">
+      <a href="#" title="关闭" class="close i-cancel msg-close right">×</a>
+     	账号激活成功，请登录！
+    </div>
+  </div>
+  </c:if>
+  <c:if test="${param.msg == 'active_error' }">
+  <div id="msg-barStickyWrapper">
+    <div id="msg-bar" class="warn">
+      <a href="#" title="关闭" class="close i-cancel msg-close right">×</a>
+     	激活链接有误，激活失败！
     </div>
   </div>
   </c:if>
