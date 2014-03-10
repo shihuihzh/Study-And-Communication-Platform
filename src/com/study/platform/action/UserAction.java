@@ -1,20 +1,26 @@
 package com.study.platform.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.context.annotation.Scope;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.study.platform.dto.UserFormDTO;
+import com.study.platform.pojo.EduWorkExp;
 import com.study.platform.pojo.Role;
 import com.study.platform.pojo.User;
+import com.study.platform.taglib.OnTopAlertTag;
+import com.study.platform.util.WebSitePropUtil;
 
 /**
  * 用户管理action
@@ -29,12 +35,19 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 	private static final long serialVersionUID = -8163437152331512240L;
 	private UserFormDTO userFormDTO = new UserFormDTO();
 	private HttpServletRequest request;
+	private String settingTab;
 	
+	public String getSettingTab() {
+		return settingTab;
+	}
 
+	public void setSettingTab(String settingTab) {
+		this.settingTab = settingTab;
+	}
 
 	@Override
 	public String execute() throws Exception {
-		SimpleMailMessage message = new SimpleMailMessage();
+		//SimpleMailMessage message = new SimpleMailMessage();
 		return super.execute();
 	}
 	
@@ -77,6 +90,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 			int result = userService.activityUser(id, key);
 			
 			if (result  == 0) {
+				request.getSession().setAttribute("SPRING_SECURITY_SAVED_REQUEST", WebSitePropUtil.webSiteProp.getProperty("site_url") + WebSitePropUtil.webSiteProp.getProperty("user_setting"));
 				return super.execute();
 			} else {
 				return super.input();
@@ -155,8 +169,48 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		userService.resetPassword(user, password);
 		
 		return super.SUCCESS;
-		
 	}
+	
+	/**
+	 * 设置页面路由
+	 * @return
+	 * @throws Exception
+	 */
+	public String settingsRouter() throws Exception {
+		String method = request.getMethod();
+		String tab = request.getParameter("tab");
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if(StringUtils.isEmpty(tab)) {
+			tab = "base";
+		}
+		this.settingTab = tab;
+		
+		switch(tab) {
+		case "base":
+			request.setAttribute("user", user);
+			if(!"get".equalsIgnoreCase(method)) {
+				userFormDTO.setId(user.getId());
+				User newUser = userService.updateUser(userFormDTO);
+				request.getSession().setAttribute(OnTopAlertTag.ALERT_MSG, "修改成功了！");
+				BeanUtils.copyProperties(user, newUser);
+			}
+			break;
+		case "record":
+			List<EduWorkExp> exps = userService.getExpsByUserId(user.getId());
+			request.setAttribute("exps", exps);
+			break;
+			
+		default:
+			this.settingTab = "base";
+			break;
+		}
+		
+		request.setAttribute("tab", this.settingTab);
+		return super.execute();
+	}
+	
+	
 
 	@Override
 	public UserFormDTO getModel() {

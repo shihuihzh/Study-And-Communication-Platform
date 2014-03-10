@@ -7,8 +7,10 @@
 	<constant name="struts.objectFactory" value="spring"/>
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.devMode" value="false" />
+    <constant name="struts.multipart.maxSize" value="2097152" />
     
-   <include file="struts_user.xml"/>
    <include file="struts_main.xml"/>
+   <include file="struts_user.xml"/>
+   <include file="struts_api.xml"/>
     
 </struts>

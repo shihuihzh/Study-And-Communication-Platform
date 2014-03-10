@@ -47,6 +47,13 @@
             <result name="input">/data/template/public/reset_password.jsp</result>
             <result name="fail">/user/login?msg=reset_error</result>
         </action>
+        
+        
+       <!-- 用户设置页面  -->
+       <action name="settings" class="userAction" method="settingsRouter">
+            <result name="invalid.token">/debug.jsp</result> 
+            <result name="success">/data/template/private/${settingTab}_setting.jsp</result>
+        </action>
             	
         <action name="*" class="userAction">
             <result>/data/template/public/{1}.jsp</result>

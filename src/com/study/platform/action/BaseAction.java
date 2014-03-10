@@ -21,5 +21,11 @@ public class BaseAction extends ActionSupport {
 	
 	@Resource
 	protected AuthenticationManager authenticationManager;
+	
+	@Override
+	public String execute() throws Exception {
+		// TODO Auto-generated method stub
+		return super.execute();
+	}
 
 }

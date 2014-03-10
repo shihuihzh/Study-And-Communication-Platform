@@ -1,25 +1,29 @@
 package com.study.platform.service.impl;
 
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.study.platform.dao.EduWorkExpDao;
 import com.study.platform.dao.UserDao;
 import com.study.platform.dao.UserEnableResetCheckDao;
+import com.study.platform.dto.ApiUserFormDTO;
 import com.study.platform.dto.UserFormDTO;
+import com.study.platform.pojo.EduWorkExp;
 import com.study.platform.pojo.User;
 import com.study.platform.pojo.UserEnableResetCheck;
 import com.study.platform.service.UserService;
+import com.study.platform.util.WebSitePropUtil;
 
 /**
  * 用户业务逻辑实现类
@@ -30,14 +34,17 @@ import com.study.platform.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 	
-	@Resource(name="passwordEncoder")
+	@Resource(name = "passwordEncoder")
 	private PasswordEncoder passwordEncoder;
-	
-	@Resource(name="userDao")
+
+	@Resource(name = "userDao")
 	private UserDao userDao;
-	
-	@Resource(name="userEnableCheckDao")
+
+	@Resource(name = "userEnableCheckDao")
 	private UserEnableResetCheckDao userEnableCheckDao;
+	
+	@Resource(name = "eduWorkExpDao")
+	EduWorkExpDao eduWorkDao;
 	
 	@Resource
 	private MailEngine mailEngine;
@@ -93,15 +100,10 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	private String createUrl(String uuid, String sign, String function) {
-		Properties prop = new Properties();
-		try {
-			prop.load(UserServiceImpl.class.getClassLoader().getResourceAsStream("website.properties"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		
-		String siteUrl = prop.getProperty("site_url");
-		String checkUrl = prop.getProperty(function);
+		String siteUrl = WebSitePropUtil.webSiteProp.getProperty("site_url");
+		String checkUrl = WebSitePropUtil.webSiteProp.getProperty(function);
 		StringBuilder sb = new StringBuilder();
 		sb.append(siteUrl);
 		sb.append(checkUrl);
@@ -129,7 +131,7 @@ public class UserServiceImpl implements UserService {
 		
 		String email = uec.getCheckEmail();		
 		User user = userDao.findUserByEmail(email);
-		boolean isValid = signValid(id, user, key);
+		boolean isValid = signValid(id, user, uec.getCheckSign());
 		
 		if(isValid) {
 			user.setAccountEnabled(true);
@@ -254,6 +256,74 @@ public class UserServiceImpl implements UserService {
 	public boolean resetPassword(User user, String password) {
 		userDao.resetPassword(user, passwordEncoder.encode(password));
 		return true;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public User getUserById(Long id) {
+		return userDao.finUserById(id);
+		
+	}
+
+	@Transactional
+	@Override
+	public User updateUser(UserFormDTO userFormDTO) {
+		User user = getUserById(userFormDTO.getId());
+		
+		user.setBirthday(userFormDTO.getBirthday());
+		user.setNickname(userFormDTO.getNickname());
+		user.setStayNow(userFormDTO.getStayNow());
+		user.setPersonalSite(userFormDTO.getPersonalSite());
+		user.setSelfIntroduction(userFormDTO.getSelfIntroduction());
+		user.setSexual(Integer.valueOf(userFormDTO.getSexual()));
+		user.setOccupation(Integer.valueOf(userFormDTO.getOccupation()));
+		
+		userDao.updateUser(user);
+		
+		return user;
+	}
+
+	@Transactional
+	@Override
+	public void addInfo(ApiUserFormDTO apiUserFormDTO, Long userId) {
+		EduWorkExp ewe = new EduWorkExp();
+		ewe.setPrefix(apiUserFormDTO.getPrefix());
+		ewe.setSuffix(apiUserFormDTO.getSuffix());
+		ewe.setUserId(userId);
+		
+		if(apiUserFormDTO.getType().equals("employment")) {
+			ewe.setType(0);
+		} else if(apiUserFormDTO.getType().equals("education")) {
+			ewe.setType(1);
+		} else {
+			throw new HibernateException("未知的经历类型!");
+		}
+		
+		eduWorkDao.addEduWorkExp(ewe);
+		
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<EduWorkExp> getExpsByUserId(Long userId) {
+		return eduWorkDao.listAllEduWorkExp(userId);
+	}
+
+	@Transactional
+	@Override
+	public void removeInfo(ApiUserFormDTO apiUserFormDTO, Long id) {
+		int pos = apiUserFormDTO.getPos();
+		int type = 0;
+		if(apiUserFormDTO.getType().equals("employment")) {
+			type = 0;
+		} else if(apiUserFormDTO.getType().equals("education")) {
+			type = 1;
+		} else {
+			throw new HibernateException("未知的经历类型!");
+		}
+		
+		eduWorkDao.removeAnyInfoByPagePos(pos, type, id);
+		
 	}
 
 	

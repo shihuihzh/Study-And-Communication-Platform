@@ -34,4 +34,19 @@ public interface UserDao {
 	 */
 	public void resetPassword(User user, String password);
 
+
+	/**
+	 * 修改用户
+	 * @param user
+	 */
+	public void updateUser(User user);
+
+	/**
+	 * 通过id找User
+	 * @param id	user id
+	 * @return
+	 */
+
+	public User finUserById(Long id);
+
 }

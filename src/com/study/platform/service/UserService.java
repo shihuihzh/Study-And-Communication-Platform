@@ -1,6 +1,10 @@
 package com.study.platform.service;
 
+import java.util.List;
+
+import com.study.platform.dto.ApiUserFormDTO;
 import com.study.platform.dto.UserFormDTO;
+import com.study.platform.pojo.EduWorkExp;
 import com.study.platform.pojo.User;
 
 /**
@@ -70,5 +74,44 @@ public interface UserService {
 	 * @return
 	 */
 	boolean resetPassword(User user, String password);
+
+
+	/**
+	 * 通过userId找到User
+	 * @param id	userid
+	 * @return 
+	 */
+	User getUserById(Long id);
+
+
+	/**
+	 * 修改用户
+	 * @param userFormDTO	
+	 * @return 新修改的用户
+	 */
+	User updateUser(UserFormDTO userFormDTO);
+
+
+	/**
+	 * 添加工作或教育经历
+	 * @param apiUserFormDTO
+	 * @param userId 
+	 */
+	void addInfo(ApiUserFormDTO apiUserFormDTO, Long userId);
+
+	/**
+	 * 查找所有的经历
+	 * @param id
+	 * @return
+	 */
+	List<EduWorkExp> getExpsByUserId(Long userId);
+
+
+	/**
+	 * 删除某个经历
+	 * @param apiUserFormDTO	提交内容，删除的条件
+	 * @param userId			用户id
+	 */
+	void removeInfo(ApiUserFormDTO apiUserFormDTO, Long id);
 
 }

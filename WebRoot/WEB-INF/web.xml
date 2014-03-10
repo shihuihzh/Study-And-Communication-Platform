@@ -8,6 +8,7 @@
             /WEB-INF/applicationContext*.xml
         </param-value>
   </context-param>
+  
   <filter>
     <filter-name>localRequestFilter</filter-name>
     <filter-class>com.study.platform.filter.LocalRequestFilter</filter-class>
@@ -32,7 +33,11 @@
       <param-value>springSecurityFilterChain</param-value>
     </init-param>
   </filter>
-  <filter>
+   <filter>
+    <filter-name>preFileUploadFilter</filter-name>
+    <filter-class>com.study.platform.filter.PreFileUploadFilter</filter-class>
+  </filter>
+  <!-- <filter>
     <filter-name>rewriteFilter</filter-name>
     <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
     <init-param>
@@ -43,7 +48,7 @@
       <param-name>confReloadCheckInterval</param-name>
       <param-value>-1</param-value>
     </init-param>
-  </filter>
+  </filter> -->
   <filter>
     <filter-name>sitemesh</filter-name>
     <filter-class>
@@ -58,6 +63,8 @@
     <filter-name>struts</filter-name>
     <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
   </filter>
+  
+  
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -66,6 +73,7 @@
     <filter-name>localRequestFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
   <filter-mapping>
     <filter-name>wroFilter</filter-name>
     <url-pattern>/assets/*</url-pattern>
@@ -80,12 +88,16 @@
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
   <filter-mapping>
+    <filter-name>preFileUploadFilter</filter-name>
+    <url-pattern>/api/upload/*</url-pattern>
+  </filter-mapping>
+  <!-- <filter-mapping>
     <filter-name>rewriteFilter</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
-  </filter-mapping>
+  </filter-mapping> -->
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
     <url-pattern>/*</url-pattern>
@@ -113,4 +125,10 @@
     </cookie-config>
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>
+<jsp-config>
+    <taglib>
+        <taglib-uri>/mytaglib</taglib-uri>
+        <taglib-location>/WEB-INF/mytag.tld</taglib-location>
+    </taglib>
+</jsp-config>
 </web-app>

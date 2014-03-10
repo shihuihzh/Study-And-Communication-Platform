@@ -9,6 +9,10 @@
 	<decorator name="default" page="default.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+	
+	<decorator name="user_settings" page="settings.jsp">
+		<pattern>/user/settings*</pattern>
+	</decorator>
 
 
 </decorators>

@@ -33,6 +33,7 @@
 		<!-- 权限页面 -->
 		<intercept-url pattern="/data/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/user/**" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/api/upload/**" access="ROLE_USER,ROLE_ADMIN" />
 		<!-- <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" /> -->
 		
 		

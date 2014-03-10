@@ -4,11 +4,15 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="elf" uri="/WEB-INF/elfun.tld"%>
+<%@ taglib prefix="mt" uri="/mytaglib"%>
 
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">  
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,6 +30,12 @@
   <link rel="stylesheet" href="${basePath}css/old-ie.css" />
   <![endif]-->
   <title><decorator:title default="学习交流社区"/></title> 
+  <script src="${basePath }js/jquery.js"></script>
+  <script src="${basePath }js/bootstrap.js"></script>
+  <script src="${basePath }js/lib.js"></script>
+  <script src="${basePath }js/other.js"></script>
+<%-- <script src="${basePath }assets//main.js"></script>
+--%>
   <decorator:head/>
 </head>
 <body id="body">
@@ -36,7 +46,7 @@
     <a target="_blank" href="http://browsehappy.com">立即升级</a>
   </div>
   <![endif]-->
-  <c:if test="${warnMsg != null }">
+  <%-- <c:if test="${warnMsg != null }">
   <div id="msg-barStickyWrapper">
     <div id="msg-bar" class="warn">
       <a href="#" title="关闭" class="close i-cancel msg-close right">×</a>
@@ -67,7 +77,8 @@
      	密码重置成功，请登录！
     </div>
   </div>
-  </c:if>
+  </c:if> --%>
+  <mt:onTopAlert/>
   <div class="global-nav">
     <nav class="global-nav container">
       <a href="###" id="site-nav-btn" class="visible-xs">导航</a>
@@ -145,7 +156,7 @@
     <div class="container inner clearfix">
       <div class="head-name">
         <a href="${basePath}users">
-          <img alt="SegmentFault" src="http://s.segmentfault.com/img/logo.png?14.1.23.1"> <strong>用户</strong>
+          <img alt="SegmentFault" src="${basePath }img/StudyFun.png"> <strong>用户</strong>
         </a>
       </div>
       <div class="head-search">
@@ -263,11 +274,6 @@
 <a id="backtop" class="mobi-hide hidden" href="#body">回顶部</a>
 <div class="s-loading" style="display: none;">加载中</div>
 
-<script src="${basePath }js/jquery.js"></script>
-<script src="${basePath }js/lib.js"></script>
-<script src="${basePath }js/bootstrap.js"></script>
-<script src="${basePath }js/other.js"></script>
-<%-- <script src="${basePath }assets//main.js"></script>
---%>
+
 </body>
 </html>

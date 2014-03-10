@@ -87,4 +87,18 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		
 	}
 
+	@Override
+	public void updateUser(User user) {
+		Session session = getSession();
+		user = (User) session.merge(user);
+		session.update(user);
+		
+	}
+
+	@Override
+	public User finUserById(Long id) {
+		Session session = getSession();
+		return (User) session.get(User.class, id);
+	}
+
 }

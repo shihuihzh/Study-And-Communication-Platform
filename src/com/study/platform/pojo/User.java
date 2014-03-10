@@ -2,6 +2,7 @@ package com.study.platform.pojo;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,15 @@ public class User implements java.io.Serializable, UserDetails {
 	private String username;
 	private String nickname;
 	private String password;
+	private String avatarHuge;
+	private String avatarLite;
+	private String resourceId;
+	private int sexual;
+	private String birthday;
+	private int occupation;
+	private String stayNow;
+	private String personalSite;
+	private String selfIntroduction;
 	private long regTime;
 	private Boolean accountExpired;
 	private Boolean accountLocked;
@@ -60,6 +70,10 @@ public class User implements java.io.Serializable, UserDetails {
 		this.accountLocked = false;
 		this.accountExpired = false;
 		this.credentialsExpired = false;
+		
+		this.resourceId = UUID.randomUUID().toString();
+		this.avatarHuge = "userinfo/avatar/user-128.png";
+		this.avatarLite = "userinfo/avatar/user-40.png";
 		
 	}
 
@@ -191,5 +205,87 @@ public class User implements java.io.Serializable, UserDetails {
 	public boolean isEnabled() {
 		return this.getAccountEnabled();
 	}
+
+	@Column(name = "avatar_huge", nullable = true, length = 255)
+	public String getAvatarHuge() {
+		return avatarHuge;
+	}
+
+	public void setAvatarHuge(String avatarHuge) {
+		this.avatarHuge = avatarHuge;
+	}
+
+	@Column(name = "avatar_lite", nullable = true, length = 255)
+	public String getAvatarLite() {
+		return avatarLite;
+	}
+
+	public void setAvatarLite(String avatarLite) {
+		this.avatarLite = avatarLite;
+	}
+
+	@Column(name = "resource_id",  nullable = true, length = 64)
+	public String getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	@Column(name = "sexual",  nullable = true)
+	public int getSexual() {
+		return sexual;
+	}
+
+	public void setSexual(int sexual) {
+		this.sexual = sexual;
+	}
+
+	@Column(name = "birthday",  nullable = true, length = 20)
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	@Column(name = "stay_now",  nullable = true, length = 64)
+	public String getStayNow() {
+		return stayNow;
+	}
+
+	public void setStayNow(String stayNow) {
+		this.stayNow = stayNow;
+	}
+
+	@Column(name = "personal_site",  nullable = true, length = 64)
+	public String getPersonalSite() {
+		return personalSite;
+	}
+
+	public void setPersonalSite(String personalSite) {
+		this.personalSite = personalSite;
+	}
+
+	@Column(name = "self_introduction",  nullable = true, length = 255)
+	public String getSelfIntroduction() {
+		return selfIntroduction;
+	}
+
+	public void setSelfIntroduction(String selfIntroduction) {
+		this.selfIntroduction = selfIntroduction;
+	}
+
+	@Column(name = "occupation",  nullable = true)
+	public int getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(int occupation) {
+		this.occupation = occupation;
+	}
+	
 
 }
