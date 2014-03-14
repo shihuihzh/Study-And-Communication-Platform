@@ -38,7 +38,7 @@
         <!-- 验证重置密码请求  -->
         <action name="reset_password" class="userAction" method="emailCheck">
             <result name="success">/data/template/public/reset_password.jsp</result>
-            <result name="input" type="redirect">/user/register?msg=active_error</result>
+            <!-- <result name="input" type="redirect">/user/register?msg=active_error</result> -->
         </action>
         
         <!-- 提交新密码请求  -->
@@ -53,9 +53,10 @@
        <action name="settings" class="userAction" method="settingsRouter">
             <result name="invalid.token">/debug.jsp</result> 
             <result name="success">/data/template/private/${settingTab}_setting.jsp</result>
+            <result name="input">/data/template/private/${settingTab}_setting.jsp</result>
         </action>
             	
-        <action name="*" class="userAction">
+       <action name="*" class="userAction">
             <result>/data/template/public/{1}.jsp</result>
          
         </action>

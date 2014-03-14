@@ -72,7 +72,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 	 * 邮箱验证后激活账户或者转到重置密码页面
 	 */
 	public String emailCheck() throws Exception {
-		String id = request.getParameter("id");
+		String id = request.getParameter("cid");
 		String key = request.getParameter("key");
 		
 		String actionName = ActionContext.getContext().getName();
@@ -157,6 +157,11 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirm_password");
 		
+		if(password.length() < 6) {
+			request.setAttribute("error", "密码小于六位");
+			return super.input();
+		}
+		
 		if(!password.equals(confirmPassword)) {
 			request.setAttribute("error", "两次密码不一致");
 			return super.input();
@@ -196,18 +201,65 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 				BeanUtils.copyProperties(user, newUser);
 			}
 			break;
+			
 		case "record":
 			List<EduWorkExp> exps = userService.getExpsByUserId(user.getId());
 			request.setAttribute("exps", exps);
 			break;
 			
+		case "auth":
+			if(!"get".equalsIgnoreCase(method)) {
+				String oldPassword = request.getParameter("old_password").trim();
+				String password = request.getParameter("password").trim();
+				String confirmPassword = request.getParameter("confirm_password").trim();
+				
+				if(!checkChangePassword(user, oldPassword, password, confirmPassword)) {
+					return super.input();
+				}
+				
+				String encryptPassword =  userService.resetPassword(user, password);
+				user.setPassword(encryptPassword);
+				request.getSession().setAttribute(OnTopAlertTag.ALERT_MSG, "修改密码成功了！");
+			}
+			break;
 		default:
 			this.settingTab = "base";
+			request.setAttribute("user", user);
 			break;
 		}
 		
 		request.setAttribute("tab", this.settingTab);
 		return super.execute();
+	}
+
+	/**
+	 * 修改密码检查
+	 * @param user
+	 * @param oldPassword
+	 * @param password
+	 * @param confirmPassword
+	 * @return
+	 */
+	private boolean checkChangePassword(User user, String oldPassword,
+			String password, String confirmPassword) {
+		boolean isSuccess = true;
+		boolean matches = passwordEncoder.matches(oldPassword, user.getPassword());
+		if(!matches) {
+			isSuccess = false;
+			request.setAttribute("error_wrong", "原密码错误！");
+		}
+		
+		if(password.length() < 6) {
+			isSuccess = false;
+			request.setAttribute("error_toShort", "密码必须大于6位！");
+		}
+		
+		if(!password.equals(confirmPassword)) {
+			isSuccess = false;
+			request.setAttribute("error_notSame", "两次密码不一致");
+		}
+		
+		return isSuccess;
 	}
 	
 	

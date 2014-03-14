@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(siteUrl);
 		sb.append(checkUrl);
-		sb.append("?id=");
+		sb.append("?cid=");
 		sb.append(uuid);
 		sb.append("&key=");
 		sb.append(sign);
@@ -253,9 +253,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public boolean resetPassword(User user, String password) {
-		userDao.resetPassword(user, passwordEncoder.encode(password));
-		return true;
+	public String resetPassword(User user, String password) {
+		String newPassword = passwordEncoder.encode(password);
+		userDao.resetPassword(user, newPassword);
+		return newPassword;
 	}
 
 	@Transactional(readOnly = true)

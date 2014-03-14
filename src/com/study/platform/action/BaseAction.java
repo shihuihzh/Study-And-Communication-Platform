@@ -3,6 +3,7 @@ package com.study.platform.action;
 import javax.annotation.Resource;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,6 +22,9 @@ public class BaseAction extends ActionSupport {
 	
 	@Resource
 	protected AuthenticationManager authenticationManager;
+	
+	@Resource(name = "passwordEncoder")
+	protected PasswordEncoder passwordEncoder;
 	
 	@Override
 	public String execute() throws Exception {

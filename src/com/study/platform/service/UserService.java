@@ -71,9 +71,9 @@ public interface UserService {
 	 * 修改密码
 	 * @param user		用户
 	 * @param password	新密码
-	 * @return
+	 * @return 新密码加密串
 	 */
-	boolean resetPassword(User user, String password);
+	String resetPassword(User user, String password);
 
 
 	/**
@@ -113,5 +113,7 @@ public interface UserService {
 	 * @param userId			用户id
 	 */
 	void removeInfo(ApiUserFormDTO apiUserFormDTO, Long id);
+
+
 
 }

@@ -157,9 +157,9 @@
 				<c:choose>
 					<c:when test="${tab == 'base' }"><h2 class="common-title">我的个人资料</h2></c:when>
 					<c:when test="${tab == 'record' }"><h2 class="common-title">工作教育经历</h2></c:when>
-					<c:when test="${tab == 'mail' }"><h2 class="common-title">Email 地址</h2></c:when>
-					<c:when test="${tab == 'auth' }"><h2 class="common-title">邮件通知提醒</h2></c:when>
-					<c:when test="${tab == 'notify' }"><h2 class="common-title">我的个人资料</h2></c:when>
+					<%-- <c:when test="${tab == 'mail' }"><h2 class="common-title">Email 地址</h2></c:when> --%>
+					<c:when test="${tab == 'auth' }"><h2 class="common-title">密码和绑定账号</h2></c:when>
+					<c:when test="${tab == 'notify' }"><h2 class="common-title">邮件通知提醒</h2></c:when>
 					<c:when test="${tab == 'widget' }"><h2 class="common-title">名片生成器</h2></c:when>
 					<c:otherwise><h2 class="common-title">我的个人资料</h2></c:otherwise>
 				</c:choose>
@@ -175,7 +175,7 @@
 				<nav class="navlist-group navlist-group-right">
 					<a class="navlist-group-item <c:if test="${tab == 'base'}">active</c:if>" href="${basePath}user/settings">我的个人资料</a> 
 					<a class="navlist-group-item <c:if test="${tab == 'record'}">active</c:if>" href="${basePath}user/settings?tab=record">工作教育经历</a>
-					<a class="navlist-group-item <c:if test="${tab == 'mail'}">active</c:if>" href="${basePath}user/settings?tab=mail">Email 地址</a>
+					<%-- <a class="navlist-group-item <c:if test="${tab == 'mail'}">active</c:if>" href="${basePath}user/settings?tab=mail">Email 地址</a> --%>
 					<a class="navlist-group-item <c:if test="${tab == 'auth'}">active</c:if>" href="${basePath}user/settings?tab=auth">密码和绑定帐号</a>
 					<a class="navlist-group-item <c:if test="${tab == 'notify'}">active</c:if>" href="${basePath}user/settings?tab=notify">邮件通知提醒</a>
 					<a class="navlist-group-item <c:if test="${tab == 'widget'}">active</c:if>" href="${basePath}user/settings?tab=widget">名片生成器</a>

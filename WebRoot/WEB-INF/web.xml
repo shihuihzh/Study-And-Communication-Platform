@@ -37,7 +37,7 @@
     <filter-name>preFileUploadFilter</filter-name>
     <filter-class>com.study.platform.filter.PreFileUploadFilter</filter-class>
   </filter>
-  <!-- <filter>
+  <filter>
     <filter-name>rewriteFilter</filter-name>
     <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
     <init-param>
@@ -48,7 +48,7 @@
       <param-name>confReloadCheckInterval</param-name>
       <param-value>-1</param-value>
     </init-param>
-  </filter> -->
+  </filter>
   <filter>
     <filter-name>sitemesh</filter-name>
     <filter-class>
@@ -91,13 +91,13 @@
     <filter-name>preFileUploadFilter</filter-name>
     <url-pattern>/api/upload/*</url-pattern>
   </filter-mapping>
-  <!-- <filter-mapping>
+  <filter-mapping>
     <filter-name>rewriteFilter</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
-  </filter-mapping> -->
+  </filter-mapping>
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
     <url-pattern>/*</url-pattern>
