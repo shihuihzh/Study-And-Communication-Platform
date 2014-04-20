@@ -32,7 +32,7 @@ import com.study.platform.util.WebSitePropUtil;
  */
 
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserService {
 	
 	@Resource(name = "passwordEncoder")
 	private PasswordEncoder passwordEncoder;

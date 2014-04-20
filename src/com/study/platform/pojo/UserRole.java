@@ -6,11 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * UserRole entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "user_role", catalog = "study_communication")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class UserRole implements java.io.Serializable {
 
 	// Fields

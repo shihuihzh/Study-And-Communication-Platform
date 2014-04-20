@@ -50,21 +50,15 @@
   <div class="global-nav">
     <nav class="global-nav container">
       <a href="###" id="site-nav-btn" class="visible-xs">导航</a>
-      <ul class="site-nav hidden-xs">
+     <ul class="site-nav hidden-xs">
         <li>
           <a href="${basePath}">问答</a>
         </li>
         <li>
-          <a href="${basePath}blogs">博客</a>
-        </li>
-        <li>
-          <a href="${basePath}tags">标签</a>
+          <a href="${basePath}tags">群组</a>
         </li>
         <li>
           <a href="${basePath}users">用户</a>
-        </li>
-        <li>
-          <a href="${basePath}badges">徽章</a>
         </li>
         <li>
           <a href="${basePath}events">活动</a>
@@ -95,7 +89,7 @@
             </a>
             <ul class="dropdown-item">
               <li>
-                <a href="${basePath}u/zhanhaowong">我的主页</a>
+                <a href="${basePath}u/<sec:authentication property="principal.id"/>">我的主页</a>
               </li>
               <li>
                 <a href="${basePath}user/settings">帐号设置</a>
@@ -137,6 +131,11 @@
         <li>
           <a href="${basePath}users">用户排行</a>
         </li>
+        <sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+        <li>
+           <a href="${basePath}u/<sec:authentication property="principal.id"/>">我的主页</a>
+        </li>
+        </sec:authorize>
       </ul>
     </div>
   </header>

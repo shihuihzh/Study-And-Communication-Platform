@@ -34,7 +34,18 @@ public class LocalRequestFilter implements Filter {
 			
 		}
 		
+		System.out.println(((HttpServletRequest)request).getRequestURI());
+		//System.out.println(((HttpServletRequest)request).getRequestURL());
+		String uri = ((HttpServletRequest)request).getRequestURI();
+		int fun = 0;
+		if(uri.contains("/group")) {
+			fun = 1;
+		} else if(uri.contains("/user") || uri.contains("/u/" )) {
+			fun = 2;
+		}
+		
 		request.setAttribute("basePath", request.getScheme() + basePathNoScheme);			
+		request.setAttribute("fun", fun);			
 		filterChain.doFilter(request, response);
 
 	}

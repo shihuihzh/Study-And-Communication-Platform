@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 /**
  * UesrEnableCheck entity. @author MyEclipse Persistence Tools
@@ -15,7 +18,7 @@ import javax.persistence.Table;
 @Table(name="user_enable_reset_check"
     ,catalog="study_communication"
 )
-
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class UserEnableResetCheck  implements java.io.Serializable {
 
 

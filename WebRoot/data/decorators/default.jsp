@@ -83,20 +83,14 @@
     <nav class="global-nav container">
       <a href="###" id="site-nav-btn" class="visible-xs">导航</a>
       <ul class="site-nav hidden-xs">
-        <li>
-          <a href="${basePath}">问答</a>
+        <li <c:if test="${fun == 0 }">class="current"</c:if>  >
+          <a href="${basePath}" >问答</a>
         </li>
-        <li>
-          <a href="${basePath}blogs">博客</a>
+        <li <c:if test="${fun == 1 }">class="current"</c:if> >
+          <a href="${basePath}groups">群组</a>
         </li>
-        <li>
-          <a href="${basePath}tags">标签</a>
-        </li>
-        <li>
+        <li <c:if test="${fun == 2 }">class="current"</c:if> >
           <a href="${basePath}users">用户</a>
-        </li>
-        <li>
-          <a href="${basePath}badges">徽章</a>
         </li>
         <li>
           <a href="${basePath}events">活动</a>
@@ -127,7 +121,7 @@
             </a>
             <ul class="dropdown-item">
               <li>
-                <a href="${basePath}u/zhanhaowong">我的主页</a>
+                <a href="${basePath}u/<sec:authentication property="principal.id"/>">我的主页</a>
               </li>
               <li>
                 <a href="${basePath}user/settings">帐号设置</a>
@@ -166,9 +160,21 @@
           <input type="hidden" name="tab" value="user"></form>
       </div>
       <ul class="head-nav">
+      	<c:if test="${fun == 1 }">
+        <li class="current"><a href="http://segmentfault.com/tags">标签导航</a></li>
+        <li><a href="http://segmentfault.com/tags/hottest">热门标签</a></li>
+      	</c:if>
+      	
+      	<c:if test="${fun == 2 }">
         <li>
           <a href="${basePath}users">用户排行</a>
         </li>
+        <sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+        <li>
+           <a href="${basePath}u/<sec:authentication property="principal.id"/>">我的主页</a>
+        </li>
+        </sec:authorize>
+        </c:if>
       </ul>
     </div>
   </header>
@@ -183,7 +189,7 @@
       out.print(request.getSession().getAttribute(key)+"<br>");
     }
    %>
-   <decorator:body/>
+   <decorator:body/><%-- 主体 --%>
   <!-- end .wrap -->
   <footer id="footer">
     <div class="container">

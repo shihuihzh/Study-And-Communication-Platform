@@ -2,12 +2,8 @@ package com.study.platform.dao;
 
 import com.study.platform.pojo.UserEnableResetCheck;
 
-public interface UserEnableResetCheckDao {
+public interface UserEnableResetCheckDao extends GenericDao<UserEnableResetCheck, Integer> {
 
-	/**
-	 * 保存验证信息，准备邮箱验证
-	 */
-	void save(UserEnableResetCheck userEnableCheck);
 	
 	
 	/**

@@ -55,6 +55,13 @@
             <result name="success">/data/template/private/${settingTab}_setting.jsp</result>
             <result name="input">/data/template/private/${settingTab}_setting.jsp</result>
         </action>
+        
+       <!-- 用户主页  -->
+       <action name="user_page" class="userAction" method="userPage">
+            <result name="invalid.token">/debug.jsp</result> 
+            <result name="success">/data/template/public/user_page.jsp</result>
+            <result name="input">/data/template/private/${settingTab}_setting.jsp</result>
+        </action>
             	
        <action name="*" class="userAction">
             <result>/data/template/public/{1}.jsp</result>

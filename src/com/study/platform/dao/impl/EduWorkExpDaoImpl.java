@@ -13,8 +13,12 @@ import com.study.platform.pojo.EduWorkExp;
 
 @SuppressWarnings("unchecked")
 @Component("eduWorkExpDao")
-public class EduWorkExpDaoImpl extends BaseDao implements EduWorkExpDao {
+public class EduWorkExpDaoImpl extends GenericDaoHibernate<EduWorkExp, Integer> implements EduWorkExpDao {
 
+	public EduWorkExpDaoImpl() {
+		super(EduWorkExp.class);
+	}
+	
 	@Override
 	public void addEduWorkExp(EduWorkExp eduWorkExp) {
 		Session session = getSession();
@@ -25,7 +29,7 @@ public class EduWorkExpDaoImpl extends BaseDao implements EduWorkExpDao {
 	public List<EduWorkExp> listAllEduWorkExp(Long userId) {
 		Session session = getSession();
 		return session.createQuery("from EduWorkExp e where e.userId = :userId order by e.id desc")
-				.setLong("userId", userId).list();
+				.setLong("userId", userId).setCacheable(true).list();
 	}
 
 	@Override
@@ -34,7 +38,7 @@ public class EduWorkExpDaoImpl extends BaseDao implements EduWorkExpDao {
 		Criteria cri = session.createCriteria(EduWorkExp.class)
 				.add(Restrictions.eq("type", expType))
 				.add(Restrictions.eq("userId", userId));
-		return cri.list();
+		return cri.setCacheable(true).list();
 	}
 
 	@Override

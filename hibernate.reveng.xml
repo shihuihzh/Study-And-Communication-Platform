@@ -2,8 +2,38 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-<table name="edu_work_exp" catalog="study_communication"
-	class="com.study.platform.pojo.EduWorkExp">
+	<table name="edu_work_exp" catalog="study_communication"
+		class="com.study.platform.pojo.EduWorkExp">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="answer" catalog="study_communication"
+		class="com.study.platform.pojo.Answer">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="question" catalog="study_communication"
+		class="com.study.platform.pojo.Question">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="user_group_score" catalog="study_communication"
+		class="com.study.platform.pojo.UserGroupScore">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="user_score" catalog="study_communication"
+		class="com.study.platform.pojo.UserScore">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="product" catalog="instrument"
+	class="con.instrument.Product">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>

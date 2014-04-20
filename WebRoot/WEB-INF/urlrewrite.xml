@@ -20,7 +20,11 @@
         <from>/css/**</from>
         <to>/css/$1</to>
     </rule> -->
-	
+
+	<rule match-type="regex">
+		<from>^/u/(.*)</from>
+		<to type="forward">/user/user_page?id=$1</to>
+	</rule>
     
     
 	<!-- Struts -->

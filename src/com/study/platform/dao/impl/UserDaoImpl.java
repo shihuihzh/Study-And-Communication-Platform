@@ -11,7 +11,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.platform.dao.UserDao;
@@ -21,7 +20,11 @@ import com.study.platform.pojo.UserRole;
 
 @SuppressWarnings("unchecked")
 @Component("userDao")
-public class UserDaoImpl extends BaseDao implements UserDao {
+public class UserDaoImpl extends GenericDaoHibernate<User, Long> implements UserDao {
+	
+	public UserDaoImpl() {
+		super(User.class);
+	}
 
 	/**
 	 * 根据Email地址获得User信息，用户登录

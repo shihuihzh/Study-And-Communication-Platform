@@ -30,6 +30,8 @@
 		<intercept-url pattern="/user/resend_email*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/data/template/public/**" access="ROLE_ANONYMOUS" />
 		
+		<intercept-url pattern="/user/user_page*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
+		
 		<!-- 权限页面 -->
 		<intercept-url pattern="/data/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/user/**" access="ROLE_USER,ROLE_ADMIN" />

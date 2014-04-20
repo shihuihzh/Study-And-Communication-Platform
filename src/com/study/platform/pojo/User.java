@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "user", catalog = "study_communication", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "email"),
 		@UniqueConstraint(columnNames = "username") })
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class User implements java.io.Serializable, UserDetails {
 
 	/**

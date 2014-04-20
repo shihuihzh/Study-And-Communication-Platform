@@ -51,6 +51,17 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		return super.execute();
 	}
 	
+	
+	/**
+	 * 用户主页
+	 * @return
+	 * @throws Exception
+	 */
+	public String userPage() throws Exception {
+		//SimpleMailMessage message = new SimpleMailMessage();
+		return super.execute();
+	}
+	
 	/**
 	 * 注册
 	 * @return

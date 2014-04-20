@@ -12,7 +12,7 @@ import com.study.platform.pojo.User;
  * @author fantasy
  *
  */
-public interface UserService {
+public interface UserService extends GenericService<User, Long> {
 
 	/**
 	 * 注册

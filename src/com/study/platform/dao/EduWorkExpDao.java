@@ -9,7 +9,7 @@ import com.study.platform.pojo.EduWorkExp;
  * @author fantasy
  *
  */
-public interface EduWorkExpDao {
+public interface EduWorkExpDao extends GenericDao<EduWorkExp, Integer>  {
 
 	/**
 	 * 增加经历

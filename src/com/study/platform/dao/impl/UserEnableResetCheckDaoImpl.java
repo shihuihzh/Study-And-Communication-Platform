@@ -10,14 +10,12 @@ import com.study.platform.dao.UserEnableResetCheckDao;
 import com.study.platform.pojo.UserEnableResetCheck;
 
 @Component("userEnableCheckDao")
-public class UserEnableResetCheckDaoImpl extends BaseDao implements UserEnableResetCheckDao {
+public class UserEnableResetCheckDaoImpl extends GenericDaoHibernate<UserEnableResetCheck, Integer> implements UserEnableResetCheckDao {
 
-	@Override
-	public void save(UserEnableResetCheck userEnableCheck) {
-		Session session = getSession();
-		session.save(userEnableCheck);
-		
+	public UserEnableResetCheckDaoImpl() {
+		super(UserEnableResetCheck.class);
 	}
+	
 
 	@Override
 	public void deleteByUUID(String UUID) {
@@ -31,14 +29,14 @@ public class UserEnableResetCheckDaoImpl extends BaseDao implements UserEnableRe
 	public UserEnableResetCheck findByUUID(String UUID) {
 		Session session = getSession();
 		Criteria cri = session.createCriteria(UserEnableResetCheck.class).add(Restrictions.eq("checkUuid", UUID));
-		return (UserEnableResetCheck) cri.uniqueResult();
+		return (UserEnableResetCheck) cri.setCacheable(true).uniqueResult();
 	}
 
 	@Override
 	public UserEnableResetCheck findByEmail(String email) {
 		Session session = getSession();
 		Criteria cri = session.createCriteria(UserEnableResetCheck.class).add(Restrictions.eq("checkEmail", email));
-		return (UserEnableResetCheck) cri.uniqueResult();
+		return (UserEnableResetCheck) cri.setCacheable(true).uniqueResult();
 	}
 	
 	

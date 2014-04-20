@@ -2,7 +2,7 @@ package com.study.platform.dao;
 
 import com.study.platform.pojo.User;
 
-public interface UserDao {
+public interface UserDao extends GenericDao<User, Long> {
 
 	/**
 	 * 根据Email地址获得User信息，用户登录
