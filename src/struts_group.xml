@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    
+    <package name="group" extends="json-default" namespace="/group">
+    	
+    	
+    	<action name="show" class="groupAction" method="showGroup">
+    		<result name="info">/data/template/public/show_group_info.jsp</result>
+    		<result name="main">/data/template/public/show_group_main.jsp</result>
+    	</action>
+    	
+    	<action name="*" class="groupAction" >
+    		<result>/data/template/private/{1}_group.jsp</result>
+    	</action>
+    	
+    	<action name="*_post" class="groupAction" method="{1}Group">
+    		<result></result>
+		</action>
+
+    </package>
+    
+    <package name="groups" extends="json-default" namespace="/groups">
+    	<default-action-ref name="list_group"/>
+    	
+		<action name="list_group" class="groupAction" method="listGroup">
+			<result>/data/template/public/groups.jsp</result>
+		</action>
+		
+		
+    </package>
+    
+</struts>

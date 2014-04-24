@@ -6,20 +6,27 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.util.Version;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.IdentifierLoadAccess;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 import com.study.platform.dao.GenericDao;
 import com.study.platform.exception.SearchException;
+import com.study.platform.util.PageController;
 
 /**
  * 所有dao的泛型接口实现类
@@ -206,4 +214,62 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     public void reindexAll(boolean async) {
         HibernateSearchTools.reindexAll(async, getSessionFactory().getCurrentSession());
     }
+
+
+	@Override
+	public List<T> findByProp(PageController pc, Map term, String orderBy) {
+		Session session = getSession();
+		
+		
+		Criteria cri = createCriteria(session, term);
+		
+		if(pc != null) {
+			pc.setPageController(this.getCountByProp(term).longValue(), pc.getCurrentPage());
+			cri.setMaxResults((int)pc.getPageSize());
+			cri.setFirstResult((int)pc.getPageStartRow());			
+		}
+		
+		if(!StringUtils.isEmpty(orderBy)) {
+			cri.addOrder(Order.desc(orderBy));			
+		}
+		
+		return cri.list();
+	}
+
+	@Override
+	public Number getCountByProp(Map term) {
+		Session session = getSession();
+		Criteria cri = createCriteria(session, term);
+		cri.setProjection(Projections.rowCount());
+		return (Number)cri.uniqueResult();
+	}
+	
+	private Criteria createCriteria(Session session, Map term) {
+		
+		Criteria cri = session.createCriteria(persistentClass);
+		
+		if(term != null) {
+			Set<Entry> entrys =  term.entrySet();
+			
+			for(Entry entry : entrys) {
+				Object key = entry.getKey();
+				Object value = entry.getValue();
+				
+				if(value instanceof CharSequence) {
+					if(!StringUtils.isEmpty((CharSequence)value)) {
+						cri.add(Restrictions.like(key.toString(), "%"+value+"%"));						
+					} else {
+						continue;
+					}
+				} else {
+					cri.add(Restrictions.eq(key.toString(), value));
+				}
+			}
+		}
+		
+		
+		return cri;
+	}
+	
+
 }

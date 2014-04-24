@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.study.platform.exception.SearchException;
+import com.study.platform.pojo.Question;
+import com.study.platform.util.PageController;
 
 
 /**
@@ -95,4 +97,31 @@ public interface GenericDao <T, PK extends Serializable> {
      * @param async true to perform the reindexing asynchronously
      */
     void reindexAll(boolean async);
+
+
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * 
+     * 描述：根据条件查找
+     * 
+     * @Title: findByProp 
+     * @param pc
+     * @param term
+     * @return
+     */
+    List<T> findByProp(PageController pc, Map term, String orderBy);
+
+    /**
+     * 根据条件查找数量
+     * 描述：
+     * 
+     * @Title: getCountByProp 
+     * @param term
+     * @return
+     */
+	Number getCountByProp(Map term);
+
+	
 }

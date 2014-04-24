@@ -15,7 +15,7 @@
 	<http pattern="/img/**" security="none"/>
 	<http pattern="/assets/**" security="none"/>
 	<http auto-config="true" access-denied-page="/403.jsp" >	
-		<!--  -->
+		<!-- 用户 -->
 		<intercept-url pattern="/user/login*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/user/check_register*" access="ROLE_ANONYMOUS" />
 		<intercept-url pattern="/user/register*" access="ROLE_ANONYMOUS" />
@@ -31,10 +31,16 @@
 		<intercept-url pattern="/data/template/public/**" access="ROLE_ANONYMOUS" />
 		
 		<intercept-url pattern="/user/user_page*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/api/group*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
+		
+		<!-- 群组 -->
+		<intercept-url pattern="/groups" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/group/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
 		
 		<!-- 权限页面 -->
 		<intercept-url pattern="/data/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/user/**" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/api/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/api/upload/**" access="ROLE_USER,ROLE_ADMIN" />
 		<!-- <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" /> -->
 		

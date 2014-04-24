@@ -38,7 +38,7 @@ public class LocalRequestFilter implements Filter {
 		//System.out.println(((HttpServletRequest)request).getRequestURL());
 		String uri = ((HttpServletRequest)request).getRequestURI();
 		int fun = 0;
-		if(uri.contains("/group")) {
+		if(uri.contains("/group") || uri.contains("/g/" )) {
 			fun = 1;
 		} else if(uri.contains("/user") || uri.contains("/u/" )) {
 			fun = 2;

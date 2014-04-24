@@ -3,6 +3,7 @@
 	<excludes>
 		<pattern>/40*.jsp</pattern>
 		<pattern>/assets/*</pattern>
+		<pattern>/api/*</pattern>
 		<pattern>*.js</pattern>
 		<pattern>*.css</pattern>
 	</excludes>

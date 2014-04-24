@@ -47,7 +47,7 @@ $(document)
 						url : 'http://www.baidu.com'
 					});
 					$('.meta-tags a, .tag').tagPopup(
-							'http://segmentfault.com/api/tag', '#main');
+							'http://localhost:8080/Study_And_Communication_Platform/api/group', '#main');
 					$('#search .input-search').searchAutoComplete({
 						url : 'http://x.segmentfault.com/autocomplete',
 						insertAfter : '#search',

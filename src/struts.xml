@@ -12,5 +12,6 @@
    <include file="struts_main.xml"/>
    <include file="struts_user.xml"/>
    <include file="struts_api.xml"/>
+   <include file="struts_group.xml"/>
     
 </struts>

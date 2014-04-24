@@ -32,8 +32,20 @@
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-<table name="product" catalog="instrument"
-	class="con.instrument.Product">
+	<table name="product" catalog="instrument"
+		class="con.instrument.Product">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="group_follow" catalog="study_communication"
+		class="com.instrument.pojo.GroupFollow">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="group" catalog="study_communication"
+	class="com.study.platform.pojo.Group">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>

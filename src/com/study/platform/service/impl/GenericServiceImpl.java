@@ -2,14 +2,18 @@ package com.study.platform.service.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.study.platform.dao.GenericDao;
 import com.study.platform.service.GenericService;
+import com.study.platform.util.PageController;
 
 /**
  * 泛型Service
@@ -18,6 +22,7 @@ import com.study.platform.service.GenericService;
  * @param <T>
  * @param <PK>
  */
+@Transactional
 public class GenericServiceImpl<T, PK extends Serializable> implements GenericService<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
@@ -27,7 +32,7 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
     /**
      * GenericDao instance, set by constructor of child classes
      */
-    @Resource	// spring4.0泛型注入
+    @Autowired	// spring4.0泛型注入
     protected GenericDao<T, PK> dao;
 
 
@@ -107,4 +112,14 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
     public void reindexAll(boolean async) {
         dao.reindexAll(async);
     }
+
+	@Override
+	public List<T> findByProp(PageController pc, Map term, String orderBy) {
+		return dao.findByProp(pc, term, orderBy);
+	}
+
+	@Override
+	public Number getCountByProp(Map term) {
+		return dao.getCountByProp(term);
+	}
 }

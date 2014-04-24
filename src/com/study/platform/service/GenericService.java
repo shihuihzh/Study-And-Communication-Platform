@@ -2,6 +2,11 @@ package com.study.platform.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+
+import com.study.platform.dto.GroupVo;
+import com.study.platform.pojo.User;
+import com.study.platform.util.PageController;
 
 /**
  * Generic Manager that talks to GenericDao to CRUD POJOs.
@@ -79,4 +84,29 @@ public interface GenericService<T, PK extends Serializable> {
      *            true to perform the reindexing asynchronously
      */
     void reindexAll(boolean async);
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * 
+     * 描述：条件查找
+     * 
+     * @Title: findByProp 
+     * @param pc
+     * @param term
+     * @return
+     */
+	List<T> findByProp(PageController pc, Map term, String orderBy);
+	
+	/**
+	 * 
+	 * 描述：条件查找数量
+	 * 
+	 * @Title: getCountByProp 
+	 * @param term
+	 * @return
+	 */
+	Number getCountByProp(Map term);
+
+	
 }

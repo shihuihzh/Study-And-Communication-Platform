@@ -21,12 +21,15 @@ public class Question implements java.io.Serializable {
 	// Fields
 
 	private Integer questionId;
+	private String questionTitle;
 	private String questionContent;
 	private Integer questionAnswerCount;
 	private Long questionCreateTime;
 	private Integer questionGreat;
 	private Integer questionCriticize;
 	private Long questionUserId;
+	private Integer groupId;
+	private Boolean accepted;
 
 	// Constructors
 
@@ -111,5 +114,35 @@ public class Question implements java.io.Serializable {
 	public void setQuestionUserId(Long questionUserId) {
 		this.questionUserId = questionUserId;
 	}
+
+	@Column(name = "question_group_id")
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+	@Column(name = "question_title")
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+
+	
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
+	}
+
+	@Column(name = "accepted")
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+	
+	
 
 }

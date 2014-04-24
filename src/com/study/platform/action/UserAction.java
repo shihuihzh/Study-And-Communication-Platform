@@ -29,12 +29,12 @@ import com.study.platform.util.WebSitePropUtil;
  */
 @Service("userAction")
 @Scope("prototype")
-public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, ServletRequestAware {
+public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>{
 
 
 	private static final long serialVersionUID = -8163437152331512240L;
 	private UserFormDTO userFormDTO = new UserFormDTO();
-	private HttpServletRequest request;
+
 	private String settingTab;
 	
 	public String getSettingTab() {
@@ -280,9 +280,4 @@ public class UserAction extends BaseAction implements ModelDriven<UserFormDTO>, 
 		return this.userFormDTO;
 	}
 
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-		
-	}
 }

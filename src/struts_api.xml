@@ -7,13 +7,20 @@
     
     <package name="api" extends="json-default" namespace="/api">
     
-    	<action name="user" class="apiUserAction">
+    	<action name="user" class="apiAction">
     		<result type = "json">
     			<param name="root">resultJson</param>
     		</result>
     	</action>
     	
-
+    	<action name="editorUpload" class="apiAction" method="editorUpload">
+    	</action>
+    	
+		<action name="group" class="apiAction" method="groupApi">
+    		<result type = "json">
+    			<param name="root">resultJson</param>
+    		</result>
+    	</action>
     </package>
     
 </struts>
